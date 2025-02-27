@@ -18,18 +18,40 @@ public class CategoryService {
 
 
     public List<CategoryModel> findAll() {
+        return categoryRepository.findAll();
     }
 
     public Optional<CategoryModel> findById(int id) {
+        return categoryRepository.findById(id);
     }
 
-    public boolean register(CategoryModel categoryModel) {
+    public boolean register(CategoryDTO categoryDTO) {
+        CategoryModel categoryModel = new CategoryModel();
+        categoryModel.setName(categoryDTO.getName());
+        categoryModel.setDescription(categoryDTO.getDescription());
+        categoryModel.setImageUrl(categoryDTO.getImageUrl());
+
+        return (categoryRepository.save(categoryModel) != null);
     }
 
     public void updateItem(int id, CategoryDTO categoryDTO) {
+        Optional<CategoryModel> categoryOptional = categoryRepository.findById(id);
+
+        if (categoryOptional.isPresent()){
+            CategoryModel categoryModel = categoryOptional.get();
+            categoryModel.setName(categoryDTO.getName());
+            categoryModel.setDescription(categoryDTO.getDescription());
+            categoryModel.setImageUrl(categoryDTO.getImageUrl());
+
+            categoryRepository.save(categoryModel);
+        }
     }
 
     public void deleteById(int id) {
-
+        try {
+            categoryRepository.deleteById(id);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 }

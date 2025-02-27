@@ -35,8 +35,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCategory(@RequestBody CategoryModel categoryModel){
-        boolean ok = categoryService.register(categoryModel);
+    public ResponseEntity<String> createCategory(@RequestBody CategoryDTO categoryDTO){
+        boolean ok = categoryService.register(categoryDTO);
         if (ok){
             return new ResponseEntity<>("Se ha insertado correctamente", HttpStatus.OK);
         }else {

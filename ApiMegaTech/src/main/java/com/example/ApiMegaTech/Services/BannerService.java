@@ -7,20 +7,20 @@ import java.util.List;
 import java.util.Optional;
 
 public class BannerService {
-    public List<BannerModel> findAll() {
-    }
-
-    public Optional<BannerModel> findById(String id) {
-    }
-
-    public Object save(BannerModel bannerModel) {
-    }
-
-    public void deleteById(String id) {
-    }
-
-    public boolean register(BannerModel bannerModel) {
-    }
+//    public List<BannerModel> findAll() {
+//    }
+//
+//    public Optional<BannerModel> findById(String id) {
+//    }
+//
+//    public Object save(BannerModel bannerModel) {
+//    }
+//
+//    public void deleteById(String id) {
+//    }
+//
+//    public boolean register(BannerModel bannerModel) {
+//    }
 
     public void updateItem(String id, BannerDTO bannerDTO) {
     }
