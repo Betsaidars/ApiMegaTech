@@ -6,10 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class BannerDTO {
 
-    private  String name;
+    private  int id;
 
     private String imageUrl;
-
-    private String description;
 
 }

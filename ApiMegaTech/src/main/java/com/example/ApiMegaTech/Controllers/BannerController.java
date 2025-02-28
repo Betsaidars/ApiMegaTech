@@ -29,8 +29,8 @@ public class BannerController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createBanner(@RequestBody BannerModel bannerModel){
-        boolean ok = bannerService.register(bannerModel);
+    public ResponseEntity<String> createBanner(@RequestBody BannerDTO bannerDTO){
+        boolean ok = bannerService.register(bannerDTO);
         if (ok){
             return new ResponseEntity<>("Se ha insertado correctamente", HttpStatus.OK);
         }else {

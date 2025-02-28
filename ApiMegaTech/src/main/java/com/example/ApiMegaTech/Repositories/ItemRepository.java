@@ -12,8 +12,5 @@ public interface ItemRepository extends MongoRepository<ItemModel, String> {
 
     List<ItemModel> findByCategoryId(int categoryId);
 
-    ItemModel save (ItemModel itemModel);
-    void deteleItemById(String id);
-    Optional<ItemModel> findById(String id);
 
 }
