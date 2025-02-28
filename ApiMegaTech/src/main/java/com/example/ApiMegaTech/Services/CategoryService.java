@@ -21,7 +21,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Optional<CategoryModel> findById(int id) {
+    public Optional<CategoryModel> findById(String id) {
         return categoryRepository.findById(id);
     }
 
@@ -47,7 +47,7 @@ public class CategoryService {
         }
     }
 
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         try {
             categoryRepository.deleteById(id);
         }catch (Exception e){
