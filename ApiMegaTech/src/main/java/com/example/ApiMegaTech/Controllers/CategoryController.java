@@ -29,19 +29,15 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCategory(@RequestBody CategoryDTO categoryDTO) {
-        boolean ok = categoryService.register(categoryDTO);
-        if (ok) {
-            return new ResponseEntity<>("Se ha insertado correctamente", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No se ha insertado correctamente", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<CategoryModel> createCategory(@RequestBody CategoryModel categoryModel) {
+        CategoryModel createCategory = categoryService.save(categoryModel);
+        return new ResponseEntity<>(createCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable int id, @RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable String id, @RequestBody CategoryDTO categoryDTO) {
         try {
-            categoryService.updateItem(id, categoryDTO);
+            categoryService.updateCategory(id, categoryDTO);
             return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(categoryDTO, HttpStatus.NOT_FOUND);
@@ -51,10 +47,11 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable String id) {
         try {
-            categoryService.deleteById(id);
+            categoryService.deleteCategoryById(id);
             return new ResponseEntity<>("Categoría eliminada correctamente", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al eliminar la categoría", HttpStatus.NOT_FOUND);
         }
     }
+
 }

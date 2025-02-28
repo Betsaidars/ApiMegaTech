@@ -13,4 +13,5 @@ public interface ItemRepository extends MongoRepository<ItemModel, String> {
     List<ItemModel> findByCategoryId(int categoryId);
 
 
+    void deteleItemById(String id);
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/banners") /** NO SE SI ES CON MAYÚSCULA O SIN MINÚSCULA **/
+@RequestMapping("/api/banners") /** NO SE SI ES CON MAYÚSCULA O CON MINÚSCULA **/
 public class BannerController {
 
     @Autowired
@@ -29,19 +29,15 @@ public class BannerController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createBanner(@RequestBody BannerDTO bannerDTO){
-        boolean ok = bannerService.register(bannerDTO);
-        if (ok){
-            return new ResponseEntity<>("Se ha insertado correctamente", HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>("No se ha insertado correctamente", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<BannerModel> createBanner(@RequestBody BannerModel bannerModel) {
+        BannerModel createdBanner = bannerService.save(bannerModel);
+        return new ResponseEntity<>(createdBanner, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BannerDTO> updateBanner(@PathVariable String id, @RequestBody BannerDTO bannerDTO){
         try{
-            bannerService.updateItem(id, bannerDTO);
+            bannerService.updateBanner(id, bannerDTO);
             return new ResponseEntity<>(bannerDTO, HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(bannerDTO, HttpStatus.NOT_FOUND);
@@ -49,17 +45,12 @@ public class BannerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBanner(@PathVariable String id){
-        if (id == null || id.isEmpty()) {
-            return new ResponseEntity<>("Nombre del Banner no proporcionado", HttpStatus.BAD_REQUEST);
-        }
-
-        boolean ok = bannerService.deleteBannerById(id);
-
-        if(ok){
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> deleteBanner(@PathVariable String id) {
+        try {
+            bannerService.deleteBannerById(id);
+            return new ResponseEntity<>("Banner deleted successfully", HttpStatus.NO_CONTENT);
+        } catch (Exception e) { // Puedes crear una excepción BannerNotFoundException
+            return new ResponseEntity<>("Banner not found", HttpStatus.NOT_FOUND);
         }
     }
 

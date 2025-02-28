@@ -28,7 +28,7 @@ public class ItemService {
         return itemRepository.save(itemModel);
     }
 
-    public void updateTrip(String id, ItemDTO itemDTO) {
+    public void updateItem(String id, ItemDTO itemDTO) {
         Optional<ItemModel> itemOptional = itemRepository.findById(id);
 
         if (itemOptional.isPresent()){
@@ -49,11 +49,12 @@ public class ItemService {
         }
     }
 
-    public void deleteById(String id) {
+    public void deleteItemById(String id) {
         try {
             itemRepository.deteleItemById(id);
         }catch (Exception e){
             System.out.println(e);
         }
     }
+
 }

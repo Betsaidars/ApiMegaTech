@@ -1,6 +1,7 @@
 package com.example.ApiMegaTech.Services;
 
 import com.example.ApiMegaTech.DTO.CategoryDTO;
+import com.example.ApiMegaTech.Models.BannerModel;
 import com.example.ApiMegaTech.Models.CategoryModel;
 import com.example.ApiMegaTech.Repositories.CategoryRepository;
 import com.example.ApiMegaTech.Repositories.ItemRepository;
@@ -25,16 +26,11 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
 
-    public boolean register(CategoryDTO categoryDTO) {
-        CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setName(categoryDTO.getName());
-        categoryModel.setDescription(categoryDTO.getDescription());
-        categoryModel.setImageUrl(categoryDTO.getImageUrl());
-
-        return (categoryRepository.save(categoryModel) != null);
+    public CategoryModel save(CategoryModel categoryModel){
+        return categoryRepository.save(categoryModel);
     }
 
-    public void updateItem(int id, CategoryDTO categoryDTO) {
+    public void updateCategory(String id, CategoryDTO categoryDTO) {
         Optional<CategoryModel> categoryOptional = categoryRepository.findById(id);
 
         if (categoryOptional.isPresent()){
@@ -47,7 +43,7 @@ public class CategoryService {
         }
     }
 
-    public void deleteById(String id) {
+    public void deleteCategoryById(String id) {
         try {
             categoryRepository.deleteById(id);
         }catch (Exception e){

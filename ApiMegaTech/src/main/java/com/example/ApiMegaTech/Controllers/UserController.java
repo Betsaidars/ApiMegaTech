@@ -4,6 +4,8 @@ import com.example.ApiMegaTech.DTO.UserDTO;
 import com.example.ApiMegaTech.Models.UserModel;
 import com.example.ApiMegaTech.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,13 +16,27 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public UserDTO registerUser(@RequestBody UserModel userModel) {
-        return userService.createUser(userModel);
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserModel userModel) {
+        try {
+            UserDTO createdUser = userService.createUser(userModel);
+            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{username}")
-    public UserDTO getUserByUsername(@PathVariable String username) {
-        return userService.getUserByUsername(username);
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        try {
+            UserDTO userDTO = userService.getUserByUsername(username);
+            if (userDTO != null) {
+                return new ResponseEntity<>(userDTO, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) { // Manejar excepciones específicas si es posible
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

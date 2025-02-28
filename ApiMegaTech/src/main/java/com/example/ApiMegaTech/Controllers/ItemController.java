@@ -30,14 +30,15 @@ public class ItemController {
     }
 
     @PostMapping
-    public ItemModel createItem(@RequestBody ItemModel itemModel){
-        return itemService.save(itemModel);
+    public ResponseEntity<ItemModel> createItem(@RequestBody ItemModel itemModel){
+        ItemModel createItem = itemService.save(itemModel);
+        return new ResponseEntity<>(createItem, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ItemDTO> updateItem(@PathVariable String id, @RequestBody ItemDTO itemDTO){
         try{
-            itemService.updateTrip(id, itemDTO);
+            itemService.updateItem(id, itemDTO);
             return new ResponseEntity<>(itemDTO, HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(itemDTO, HttpStatus.NOT_FOUND);
@@ -45,8 +46,13 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteItem(@PathVariable String id){
-        itemService.deleteById(id);
+    public ResponseEntity<String> deleteItem(@PathVariable String id) {
+        try {
+            itemService.deleteItemById(id);
+            return new ResponseEntity<>("Categoría eliminada correctamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al eliminar la categoría", HttpStatus.NOT_FOUND);
+        }
     }
 
 

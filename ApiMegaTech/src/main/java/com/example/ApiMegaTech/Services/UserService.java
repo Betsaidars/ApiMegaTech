@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -36,17 +38,16 @@ public class UserService {
     }
 
     public UserDTO getUserByUsername(String username) {
-        UserModel userModel = userRepository.findByUsername(username);
+        Optional<UserModel> userModelOptional = Optional.ofNullable(userRepository.findByUsername(username));
 
-            if (userModel == null){
-                return null;
-            }
-
+        if (userModelOptional.isPresent()) {
+            UserModel userModel = userModelOptional.get();
             UserDTO userDTO = new UserDTO();
             userDTO.setName(userModel.getName());
             userDTO.setEmail(userModel.getEmail());
-            userDTO.setPass(userModel.getPass());
-
             return userDTO;
+        }else {
+            return null;
+        }
     }
 }

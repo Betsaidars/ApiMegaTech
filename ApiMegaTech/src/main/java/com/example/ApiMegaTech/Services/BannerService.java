@@ -1,8 +1,10 @@
 package com.example.ApiMegaTech.Services;
 
 import com.example.ApiMegaTech.DTO.BannerDTO;
+import com.example.ApiMegaTech.Exceptions.BannerNotFoundException;
 import com.example.ApiMegaTech.Models.BannerModel;
 import com.example.ApiMegaTech.Repositories.BannerRepository;
+import com.mongodb.MongoException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,32 +23,40 @@ public class BannerService {
         return bannerRepository.findById(id);
     }
 
-    public Object save(BannerModel bannerModel) {
-
+    public BannerModel save(BannerModel bannerModel){
+        return bannerRepository.save(bannerModel);
     }
 
-    public void deleteById(String id) {
-    }
 
-    public boolean register(BannerDTO bannerDTO) {
-        BannerModel bannerModel = new BannerModel();
-        bannerModel.setImageUrl(bannerDTO.getImageUrl());
+    public BannerModel updateBanner(String id, BannerDTO bannerDTO) {
+        try {
+            Optional<BannerModel> optionalBannerModel = bannerRepository.findById(id);
 
-        return (bannerRepository.save(bannerModel) != null);
-    }
-
-    public void updateItem(String id, BannerDTO bannerDTO) {
-        Optional<BannerModel> optionalBannerModel = bannerRepository.findById(id);
-
-        if (optionalBannerModel.isPresent()){
-            BannerModel bannerModel = optionalBannerModel.get();
-            bannerModel.setImageUrl(bannerDTO.getImageUrl());
-
-            bannerRepository.save(bannerModel);
+            if (optionalBannerModel.isPresent()) {
+                BannerModel bannerModel = optionalBannerModel.get();
+                bannerModel.setImageUrl(bannerDTO.getImageUrl());
+                return bannerRepository.save(bannerModel);
+            } else {
+                throw new BannerNotFoundException("Banner con ID " + id + " not existe");
+            }
+        } catch (IllegalArgumentException e) {
+            // Manejar la excepción si el ID es inválido
+        } catch (MongoException e) {
+            // Manejar la excepción si hay un problema con la base de datos
         }
+        return null; // O lanzar una excepción
     }
 
     public boolean deleteBannerById(String id) {
+        try {
+            if (bannerRepository.existsById(id)) {
+                bannerRepository.deleteById(id);
+                return true;
+            }
+        } catch (Exception e) {
+            // Manejar la excepción, por ejemplo, logueando el error
+            System.err.println("Error deleting banner: " + e.getMessage());
+        }
         return false;
     }
 }

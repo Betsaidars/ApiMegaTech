@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface BannerRepository extends MongoRepository<BannerModel, String> {
 
+
+    void deleteBannerById(String id);
 }
