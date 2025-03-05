@@ -44,10 +44,9 @@ public class CategoryService {
     }
 
     public void deleteCategoryById(String id) {
-        try {
-            categoryRepository.deleteById(id);
-        }catch (Exception e){
-            System.out.println(e);
+        if (!categoryRepository.existsById(id)){
+            throw new RuntimeException();
         }
+        categoryRepository.deleteById(id);
     }
 }

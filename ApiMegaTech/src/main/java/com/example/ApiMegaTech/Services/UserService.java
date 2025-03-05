@@ -32,7 +32,6 @@ public class UserService {
         UserDTO userDTO = new UserDTO();
         userDTO.setName(savedUser.getName());
         userDTO.setEmail(savedUser.getEmail());
-        userDTO.setName(savedUser.getName());
 
         return userDTO;
     }

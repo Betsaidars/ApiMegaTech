@@ -53,5 +53,4 @@ public class CategoryController {
             return new ResponseEntity<>("Error al eliminar la categoría", HttpStatus.NOT_FOUND);
         }
     }
-
 }

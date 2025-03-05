@@ -10,6 +10,4 @@ public class CategoryDTO {
     private String imageUrl;
 
     private String description;
-
-
 }

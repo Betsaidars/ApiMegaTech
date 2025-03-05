@@ -9,5 +9,4 @@ public class BannerDTO {
     private  int id;
 
     private String imageUrl;
-
 }

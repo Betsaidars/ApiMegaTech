@@ -11,7 +11,9 @@ import java.util.Optional;
 public interface ItemRepository extends MongoRepository<ItemModel, String> {
 
     List<ItemModel> findByCategoryId(int categoryId);
-
+    List<ItemModel> findByName(String name);
 
     void deteleItemById(String id);
+
+
 }
