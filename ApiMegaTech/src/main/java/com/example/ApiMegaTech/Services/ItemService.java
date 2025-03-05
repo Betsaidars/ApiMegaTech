@@ -34,7 +34,6 @@ public class ItemService {
         if (itemOptional.isPresent()){
             ItemModel itemModel = itemOptional.get();
             itemModel.setName(itemDTO.getName());
-            itemModel.setCategoryId(itemDTO.getCategoryId());
             itemModel.setDescription(itemDTO.getDescription());
             itemModel.setBrand(itemDTO.getBrand());
             itemModel.setModel(itemDTO.getModel());
@@ -51,7 +50,7 @@ public class ItemService {
 
     public void deleteItemById(String id) {
         try {
-            itemRepository.deteleItemById(id);
+            itemRepository.deleteItemById(id);
         }catch (Exception e){
             System.out.println(e);
         }

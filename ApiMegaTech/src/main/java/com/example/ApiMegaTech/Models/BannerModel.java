@@ -15,4 +15,20 @@ public class BannerModel {
 
     @Schema(description = "Url de la imagen del abanner", example = "https://firebasestorage.googleapis.com/v0/b/project208-2.appspot.com/o/banner1.png?alt=media&token=91f65188-3bff-4ad6-8b02-31c00aeb3ca6")
     private String imageUrl;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

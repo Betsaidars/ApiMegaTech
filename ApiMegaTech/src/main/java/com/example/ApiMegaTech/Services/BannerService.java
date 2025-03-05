@@ -6,10 +6,12 @@ import com.example.ApiMegaTech.Models.BannerModel;
 import com.example.ApiMegaTech.Repositories.BannerRepository;
 import com.mongodb.MongoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BannerService {
 
     @Autowired

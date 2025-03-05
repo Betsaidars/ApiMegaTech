@@ -20,7 +20,7 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public UserDTO createUser(UserModel userModel) {
-        if (userRepository.findByUsername(userModel.getName()) != null){
+        if (userRepository.findByName(userModel.getName()) != null){
             throw new RuntimeException("Nombre de usuario ya existente");
         }
 
@@ -37,7 +37,7 @@ public class UserService {
     }
 
     public UserDTO getUserByUsername(String username) {
-        Optional<UserModel> userModelOptional = Optional.ofNullable(userRepository.findByUsername(username));
+        Optional<UserModel> userModelOptional = Optional.ofNullable(userRepository.findByName(username));
 
         if (userModelOptional.isPresent()) {
             UserModel userModel = userModelOptional.get();
