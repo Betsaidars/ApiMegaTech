@@ -14,13 +14,13 @@ public class UserModel {
     private String id;
 
     @Schema(description = "Nombre del usuario", example = "Betsaida")
-    private String name;
+    private String username;
 
     @Schema(description = "Email del usuario", example = "betsaida@gmail.com")
     private String email;
 
     @Schema(description = "Contraseña del usuario", example = "1234")
-    private String pass;
+    private String password;
 
     public String getId() {
         return id;
@@ -31,11 +31,11 @@ public class UserModel {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
     public String getEmail() {
@@ -47,10 +47,10 @@ public class UserModel {
     }
 
     public String getPass() {
-        return pass;
+        return password;
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.password = pass;
     }
 }

@@ -1,0 +1,8 @@
+[build]
+cmd = "mvn clean package shade:shade"
+
+[start]
+cmd = "java -jar target/ApiMegaTech-0.0.1-SNAPSHOT.jar"
+
+[nixpacks]
+javaVersion = "17" # o l

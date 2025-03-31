@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/banners") /** NO SE SI ES CON MAYÚSCULA O CON MINÚSCULA **/
+@RequestMapping("/api/banners")
 public class BannerController {
 
     @Autowired
