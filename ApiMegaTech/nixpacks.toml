@@ -1,8 +1,11 @@
-[build]
-cmd = "mvn clean package shade:shade"
+[phases.setup]
+pkgs = ["jdk"]
 
-[start]
-cmd = "java -jar target/ApiMegaTech-0.0.1-SNAPSHOT.jar"
+[phases.build]
+cmds = ["./mvnw package -DskipTests"]
 
-[nixpacks]
-javaVersion = "17" # o l
+[phases.install]
+cmds = []
+
+[phases.runtime]
+cmds = ["java -jar target/*.jar"]
